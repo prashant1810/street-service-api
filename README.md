@@ -21,6 +21,8 @@ Clone the repository:
    ```bash
    git clone https://github.com/prashant1810/street-service-api.git
    cd street-service-api
+   docker compose up
+   docker compose down
    
 ### Services Overview
 1. Street API (ptv.services.streetapi):
