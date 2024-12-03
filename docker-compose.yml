@@ -1,0 +1,108 @@
+services:
+  ptv.services.streetapi:
+    image: ${DOCKER_REGISTRY-}ptvservicesstreetapi
+    container_name: street-api
+    depends_on:
+      - "street-db"
+      - "street-cache"
+      - "loki"
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    build:
+      context: .
+      dockerfile: PTV.Services.StreetAPI/Dockerfile
+    environment:
+      - ConnectionStrings__DefaultConnection=User ID =postgres;Password=postgres;Server=street-db;Port=5432;Database=StreetDb;Pooling=true;
+      - loki= http://loki:3100
+      - ASPNETCORE_URLS=http://+:5001
+      - REDIS_CONNECTION=street-cache:6379
+    networks:
+      - dev
+
+  street-db:
+    image: postgis/postgis
+    container_name: street-db
+    restart: always
+    ports: 
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB =StreetDb 
+      - HOST = "postgresnetdb.default"
+    volumes:
+      - postgis-data:/var/lib/postgresql/data
+    networks:
+      - dev
+
+  street-cache:
+    image: redis:latest
+    container_name: street-cache
+    restart: always
+    ports: 
+      - "6379:6379"
+    networks:
+      - dev
+
+  street-seq:
+    image: datalust/seq:latest
+    container_name: street-seq
+    ports: 
+      - "5341:5341"
+      - "8081:80"
+    environment:
+      - ACCEPT_EULA=Y
+    networks:
+      - dev
+      
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    ports:
+      - 3100:3100
+    volumes:
+      - ./loki-config.yaml:/etc/loki/loki-config.yaml
+    healthcheck:
+      test: wget =1 --tries=1 -O- http://localhost:3100/ready
+      interval: 3s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+ 
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    ports:
+      - "9080:9080"
+    volumes:
+      - ./promtail-config.yaml:/etc/promtail/promtail-config.yaml
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    depends_on:
+      - loki
+    ports:
+      - 3000:3000
+    environment:
+      - gf_paths_provisioning=/etc/grafana/provisioning
+      - gf_auth_anonymous_enabled=true
+      - gf_auth_anonymous_org_role=admin
+  
+  # k6:
+  #   image: grafana/k6:latest
+  #   networks:
+  #     - k6
+  #   ports:
+  #     - "6565:6565"
+
+volumes:
+  postgis-data:
+  prometheus-data:
+    driver: local
+
+networks:
+    monitoring:
+    dev:
+        driver: bridge 

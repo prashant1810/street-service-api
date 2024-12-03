@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "PTV.Services.IntegrationTests": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

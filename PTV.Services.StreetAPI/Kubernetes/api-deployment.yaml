@@ -1,0 +1,41 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: streetapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: streetapi
+  template:
+    metadata:
+      labels:
+        app: streetapi
+    spec:
+      containers:
+        - name: streetapi
+          image: prashant95/streetapi:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: postgres-secret
+          env:
+           - name: ASPNETCORE_URLS
+             value: http://*:80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: streetapi
+spec:
+  type: ClusterIP
+  selector:
+    app: streetapi
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80

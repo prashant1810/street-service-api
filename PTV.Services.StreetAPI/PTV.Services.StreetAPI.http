@@ -1,0 +1,6 @@
+@PTV.Services.StreetAPI_HostAddress = http://localhost:5240
+
+GET {{PTV.Services.StreetAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

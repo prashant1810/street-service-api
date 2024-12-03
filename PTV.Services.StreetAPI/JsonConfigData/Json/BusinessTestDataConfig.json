@@ -1,0 +1,16 @@
+{
+  "Message1": "Street not found or invalid street/geometry.",
+  "Message2": "Street Name already exists.",
+  "Message3": "Values Deleted",
+  "Message4": "Resource is locked right now.",
+  "Message5": "No values found.",
+  "Message6": "Values Updated through PostGis",
+  "Message7": "Invalid Geometry coordinates.",
+  "Message8": "Invalid Geometry type.",
+  "Message9": "Invalid Capacity number.",
+  "Message10": "Values Updated",
+  "Message11": "Streets's name cannot be empty.",
+  "Message12": "Streets's geometry cannot be empty.",
+  "Message13": "Streets's capacity cannot be empty."
+
+}

@@ -1,0 +1,11 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-secret
+  labels:
+    app: street-db
+data:
+  POSTGRES_DB: StreetDb
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  HOST: "postgresnetdb.default"
