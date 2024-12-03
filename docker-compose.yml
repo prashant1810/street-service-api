@@ -1,6 +1,6 @@
 services:
   ptv.services.streetapi:
-    image: ${DOCKER_REGISTRY-}ptvservicesstreetapi
+    image: prashant95/streetapi:v1
     container_name: street-api
     depends_on:
       - "street-db"
