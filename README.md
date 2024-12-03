@@ -23,6 +23,14 @@ Clone the repository:
    cd street-service-api
    docker compose up
    docker compose down
+
+Access the services:
+
+- Services: http://localhost:5001/swagger/index.html
+- Seq: http://localhost:8081/#/events?range=1d
+- Loki: http://localhost:3100
+- Grafana: http://localhost:3000
+
    
 ### Services Overview
 1. Street API (ptv.services.streetapi):
@@ -68,9 +76,3 @@ Clone the repository:
 - Clone the repository and navigate to the project directory
 - Start all services
 
-3. Access the services:
-
-- Services: http://localhost:5001/swagger/index.html
-- Seq: http://localhost:8081/#/events?range=1d
-- Loki: http://localhost:3100
-- Grafana: http://localhost:3000
