@@ -17,12 +17,13 @@ A REST API for managing streets, their geometry, and capacity data, using .NET, 
 - PostgreSQL
 
 ### Installation
-Clone the repository:
-   ```bash
-   git clone https://github.com/prashant1810/street-service-api.git
-   cd street-service-api
-   docker compose up
-   docker compose down
+Clone the repository and navigate to the project directory:
+- git clone https://github.com/prashant1810/street-service-api.git
+- cd street-service-api
+
+Start all services
+- docker compose up
+- docker compose down
 
 Access the services:
 
@@ -30,6 +31,12 @@ Access the services:
 - Seq: http://localhost:8081/#/events?range=1d
 - Loki: http://localhost:3100
 - Grafana: http://localhost:3000
+
+Start Kubernetes:
+
+- cd street-service-api/PTV.Services.StreetAPI/Kubernetes
+- kubectl apply -f postgres-deployment.yaml
+- kubectl apply -f api-deployment.yaml
 
    
 ### Services Overview
@@ -55,7 +62,6 @@ Access the services:
 5. Loki (loki):
 
 - A logging system compatible with Grafana.
-- Used for collecting logs.
 
 6. Promtail (promtail):
 
@@ -66,13 +72,4 @@ Access the services:
 - A monitoring and visualization tool.
 - Accessible on port 3000.
 
-### How to Use
-1. Prerequisites
-
-- Ensure Docker and Docker Compose are installed.
-
-2. Setup and Run
-
-- Clone the repository and navigate to the project directory
-- Start all services
 
