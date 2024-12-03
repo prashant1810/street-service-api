@@ -46,7 +46,7 @@ Start Kubernetes:
 
 3. Redis Cache (street-cache):
 
-- A Redis instance used for caching street data.
+- A Redis instance used for caching street data and handing race conditions through RedLockFactory.
 
 4. Seq (street-seq):
 
